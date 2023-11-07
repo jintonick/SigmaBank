@@ -7,6 +7,7 @@ module.exports = {
     colors: {
       graydef: '#B1B5C3',
       prymeblue: '#213A8B',
+      graycol: '#5c637d'
     },
     extend: {},
       fontFamily: {
