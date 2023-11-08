@@ -18,11 +18,11 @@ function UnElement () {
     }
 
     return (
-        <div className={`transition-all duration-500 ${isOpen ? 'h-[500px]' : 'h-[90px]'} flex flex-col items- justify-between max-w-[594px] border-prymeblue border-[2px] rounded-[10px] w-full overflow-hidden`}>
+        <div className={`transition-all duration-500 ${isOpen ? 'h-[470px]' : 'h-[90px]'} flex flex-col mb-[20px] justify-between max-w-[594px] border-prymeblue border-[2px] rounded-[10px] w-full overflow-hidden`}>
             {isOpen ? (
                 <div className="">
                     <div>
-                        <div className="p-[25px]">
+                        <div className="px-[25px] pt-[18px]">
                             <h1 className="text-[30px] font-bold">Заказ №1</h1>
                             <DeliveryData title="Описание" content="Доставка карты Халва и заключение договора" />
                             <DeliveryData title="Получатель" content="Иванов Иван Иванов" />
