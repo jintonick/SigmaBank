@@ -1,0 +1,8 @@
+<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="message-dots">
+<path id="Vector" d="M15 13.75V13.125" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" d="M20 13.75V13.125" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_3" d="M10 13.75V13.125" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_4" d="M4.33058 21.0355C2.5 19.5711 2.5 18.464 2.5 13.75C2.5 9.03595 2.5 6.67893 4.33058 5.21447C6.16117 3.75 9.10744 3.75 15 3.75C20.8926 3.75 23.8388 3.75 25.6694 5.21447C27.5 6.67893 27.5 9.03595 27.5 13.75C27.5 18.464 27.5 19.5711 25.6694 21.0355C23.8388 22.5 20.8926 22.5 15 22.5C11.8631 22.5 10.2497 24.6719 7.5 26.25V22.2353C6.13258 22.0319 5.1262 21.672 4.33058 21.0355Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

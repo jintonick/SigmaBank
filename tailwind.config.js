@@ -9,6 +9,8 @@ module.exports = {
       prymeblue: '#213A8B',
       graycol: '#5c637d',
       prymred: '#F7304D',
+      lightred: '#FFE5E8',
+      lightblue: '#E4EAFF',
       authgray: '#777E90'
     },
     extend: {},

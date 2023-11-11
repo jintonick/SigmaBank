@@ -3,6 +3,8 @@
     width: 506px;
     max-height: 424px;
     height: 424px;
+    display: flex;
+    justify-content: center;
 }
 
 .input-contanier {
