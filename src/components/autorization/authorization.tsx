@@ -6,6 +6,8 @@ import './style.css'
 import { useUser } from "../../context/UserContext";
 
 function Authorization() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [isButtonPressed, setButtonPressed] = useState(false);
     const navigate = useNavigate();
 
@@ -21,9 +23,30 @@ function Authorization() {
         navigate('/main');
     };
 
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const response = await fetch('http://localhost:8000/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': 'http://localhost:8000/api/login'
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+                email,
+                password
+            })
+        });
+
+        const content = await response.json();
+        if (content["message"] == "success") {
+            navigate('/main');
+        }
+    }
+
     return(
         <div className="flex w-full h-screen justify-center items-center font-roboto">
-            <form className="authorization-container" onSubmit={undefined}>
+            <form className="authorization-container" onSubmit={handleSubmit}>
                 <div className='w-[336px] sm:w-full'>
                     <div className="h-[55px]">
                         <h1 className="pt-[20px] ml-[20px] sm:ml-[0px] font-bold text-[22px] sm:text-[30px]">Авторизация</h1>
@@ -36,6 +59,7 @@ function Authorization() {
                                     className="max-w-[446px] mt-[10px] sm:p-[15px] w-[276px] sm:w-[446px] sm:h-[59px] h-[21px] sm:border-[1px] border-graydef sm:rounded-[10px] "
                                     type={"email"}
                                     placeholder={"Ваш логин"}
+                                    required onChange={e => setEmail(e.target.value)}
                                 />
                                 <div className="bg-[#000000] w-[276px] h-[1px] sm:hidden"></div>
                             </div>
@@ -45,6 +69,7 @@ function Authorization() {
                                     className="mt-[12px] max-w-[446px]  sm:p-[15px] w-[276px] sm:w-[446px] sm:h-[59px] h-[21px] sm:border-[1px] border-graydef sm:rounded-[10px]"
                                     type={"password"}
                                     placeholder={"********"}
+                                    required onChange={e => setPassword(e.target.value)}
                                 />
                                 <div className="bg-[#000000] w-[276px] h-[1px] sm:hidden"></div>
                             </div>
