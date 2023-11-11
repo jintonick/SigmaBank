@@ -3,12 +3,30 @@ import './style.css'
 import { useNavigate, NavLink } from 'react-router-dom';
 
 function Authorization() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [isButtonPressed, setButtonPressed] = useState(false);
     const navigate = useNavigate();
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        navigate('/main');
+        const response = await fetch('http://localhost:8000/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json', 
+                'Access-Control-Allow-Origin': 'http://localhost:8000/api/login'
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+                email,
+                password
+            })
+        });
+
+        const content = await response.json();
+        if (content["message"] == "success") {
+            navigate('/main');
+        }
     }
 
     return(
@@ -25,6 +43,7 @@ function Authorization() {
                                 className="max-w-[446px] mt-[10px] w-[276px] sm:w-[446px] sm:h-[59px] h-[21px] sm:border-[1px] border-graydef sm:rounded-[10px] "
                                 type={"email"}
                                 placeholder={"Ваш логин"}
+                                required onChange={e => setEmail(e.target.value)}
                             />
                             <div className="bg-[#000000] w-[276px] h-[1px] sm:hidden"></div>
                         </div>
@@ -34,6 +53,7 @@ function Authorization() {
                                 className="mt-[12px] max-w-[446px] w-[276px] sm:w-[446px] sm:h-[59px] h-[21px] sm:border-[1px] border-graydef sm:rounded-[10px]"
                                 type={"password"}
                                 placeholder={"********"}
+                                required onChange={e => setPassword(e.target.value)}
                             />
                             <div className="bg-[#000000] w-[276px] h-[1px] sm:hidden"></div>
                         </div>
