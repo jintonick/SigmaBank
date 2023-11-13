@@ -40,11 +40,12 @@ function Authorization() {
         const content = await response.json();
         if (content["message"] == "success") {
             if (email == "admin@test.com"){
-                navigate('/meneger');
+                setUserType('manager');
             }
             else {
-                navigate('/main');
+                setUserType('employee');
             }
+            navigate('/main');
         }
     }
 
