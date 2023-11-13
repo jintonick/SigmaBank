@@ -73,10 +73,6 @@ function Authorization() {
                                 />
                                 <div className="bg-[#000000] w-[276px] h-[1px] sm:hidden"></div>
                             </div>
-                            <div>
-                                <button onClick={handleEmployeeClick}>сотрудник</button>
-                                <button onClick={handleManagerClick}>менеджер</button>
-                            </div>
                         </div>
                     </div>
                     <div className="flex justify-center">
