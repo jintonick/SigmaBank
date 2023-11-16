@@ -23,7 +23,7 @@ function Meneger() {
 
     const handleButtonClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        const response = await fetch('https://d702-2a00-1370-8188-58e4-4877-5cc-f238-4d7.ngrok-free.app/api/login', {
+        const response = await fetch('https://3eed-2a00-1370-8188-58e4-2cff-3fd-1e2c-6694.ngrok-free.app/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

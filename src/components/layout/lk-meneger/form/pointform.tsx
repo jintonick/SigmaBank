@@ -42,7 +42,6 @@ function PointForm({ onClose }:PointFormProps) {
             const data = await response.json();
             const coords = data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(' ').map(Number);
             setCoordinates(coords);
-            handleSubmit(coords); // Вызываем функцию отправки данных с новыми координатами
         } catch (error) {
             console.error('Error during geocoding:', error);
         }
@@ -51,8 +50,9 @@ function PointForm({ onClose }:PointFormProps) {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await geocodeAddress();
+
         if (coordinates) {
-            const response = await fetch('http://localhost:8080/api/new_point', {
+            const response = await fetch('https://3eed-2a00-1370-8188-58e4-2cff-3fd-1e2c-6694.ngrok-free.app/api/new_point', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -66,12 +66,14 @@ function PointForm({ onClose }:PointFormProps) {
                     cards: cards.toString(), // Преобразование числа в строку
                 })
             });
+
             if (response.ok) { // Проверяем, что запрос успешен
                 onClose();
             }
-            console.log(response)
+            console.log(response);
         }
     };
+
 
     return (
         <div className="max-w-[1295px] w-full z-1000 p-[20px] bg-[#FFF] justify-center items-center h-[285px] rounded-[10px] shadow-[2px_2px_10px_rgba(0,0,0,0.15)]">
@@ -90,7 +92,7 @@ function PointForm({ onClose }:PointFormProps) {
                         <div className="flex flex-col">
                             <label className="text-authgray text-[14px] font-bold">Когда подключена точка?</label>
                             <select
-                                className="w-full rounded-[5px] border-[1px] border-authgray"
+                                className="rounded-[5px] w-full max-w-[340px] h-[40px] border-[1px] border-prymeblue"
                                 value={activated}
                                 onChange={handleActivatedChange}
                             >
@@ -103,7 +105,7 @@ function PointForm({ onClose }:PointFormProps) {
                         <div>
                             <label className="text-authgray text-[14px] font-bold">Карта и материалы доставлены?</label>
                             <select
-                                className="w-full rounded-[5px] border-[1px] border-authgray"
+                                className="rounded-[5px] w-full max-w-[340px] h-[40px] border-[1px] border-prymeblue"
                                 value={materials}
                                 onChange={handleMaterialsChange}
                             >
@@ -115,7 +117,7 @@ function PointForm({ onClose }:PointFormProps) {
                             <label className="text-authgray text-[14px] font-bold">Кол-во дней после выдачи последней карты?</label>
                             <input
                                 type="text"
-                                className="rounded-[5px] w-full border-[1px] border-authgray"
+                                className="rounded-[5px] w-full max-w-[340px] h-[40px] border-[1px] border-prymeblue"
                                 value={days}
                                 onChange={handleDaysChange}
                             />
@@ -123,19 +125,19 @@ function PointForm({ onClose }:PointFormProps) {
                     </div>
                     <div>
                         <div>
-                            <label >Кол-во одобренных заявок</label>
+                            <label className="text-authgray text-[14px] font-bold">Кол-во одобренных заявок</label>
                             <input
                                 type="text"
-                                className="rounded-[5px] w-full border-[1px] border-authgray"
+                                className="rounded-[5px] w-full max-w-[340px] h-[40px] border-[1px] border-prymeblue"
                                 value={approved}
                                 onChange={handleApprovedChange}
                             />
                         </div>
                         <div>
-                            <label>Кол-во выданных карт</label>
+                            <label className="text-authgray text-[14px] font-bold">Кол-во выданных карт</label>
                             <input
                                 type="text"
-                                className="rounded-[5px] w-full border-[1px] border-authgray"
+                                className="rounded-[5px] w-full max-w-[340px] h-[40px] border-[1px] border-prymeblue"
                                 value={cards}
                                 onChange={handleCardsChange}
                             />

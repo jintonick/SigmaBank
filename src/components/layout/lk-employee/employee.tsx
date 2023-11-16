@@ -74,7 +74,7 @@ function Employee() {
 
         const getUser = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/user', {
+            const response = await fetch('https://3eed-2a00-1370-8188-58e4-2cff-3fd-1e2c-6694.ngrok-free.app/api/user', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -97,24 +97,28 @@ function Employee() {
         }
     };
 
-    const getTasks = async ({userId}:GetTasksProps) => {
+    const getTasks = async ({ userId }: GetTasksProps) => {
         try {
-            const response = await fetch('http://localhost:8080/api/tasks', {
+            const response = await fetch(`https://3eed-2a00-1370-8188-58e4-2cff-3fd-1e2c-6694.ngrok-free.app/api/tasks?userId=${userId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                credentials: 'include',
-                body: JSON.stringify({
-                    userId,
-                })
+                credentials: 'include'
             });
-            const tasks = await response.json();
+            let tasks = await response.json();
+
+            // Добавление userLocation как startPoint для первой задачи
+            if (tasks.length > 0 && userLocation.longitude && userLocation.latitude) {
+                tasks[0].startPoint = `${userLocation.latitude}, ${userLocation.longitude}`;
+            }
+
             setRoutes(tasks);
         } catch (error) {
             console.error('Ошибка при получении задач:', error);
         }
     };
+
 
 
 
@@ -163,16 +167,30 @@ function Employee() {
 
     useEffect(() => {
         const myMap = mapRef.current;
-        if (myMap && currentRoute.startPoint && currentRoute.endPoint) {
+        if (myMap && routes.length > 0 && userLocation.latitude && userLocation.longitude) {
+            // Создаем массив referencePoints для маршрутов
+            let referencePoints = routes.reduce((points, route, index) => {
+                if (index === 0) {
+                    points.push(`${userLocation.latitude}, ${userLocation.longitude}`); // начальная точка для первой задачи
+                } else {
+                    points.push(routes[index - 1].endPoint); // конечная точка предыдущей задачи как начальная точка текущей
+                }
+                points.push(route.endPoint); // конечная точка текущей задачи
+                return points;
+            }, [] as string[]); // Утверждение типа для referencePoints как массив строк
+
+            // Создаем и добавляем маршрут на карту
             const multiRoute = new window.ymaps.multiRouter.MultiRoute({
-                referencePoints: [currentRoute.startPoint, currentRoute.endPoint],
+                referencePoints: referencePoints,
                 params: { routingMode: 'auto' },
             }, { boundsAutoApply: true });
-            console.log("Обновление карты с маршрутом:", currentRoute.startPoint, currentRoute.endPoint);
+
             myMap.geoObjects.removeAll();
             myMap.geoObjects.add(multiRoute);
         }
-    }, [myMap, currentRoute]);
+    }, [myMap, routes, userLocation]);
+
+
 
 
     return (
