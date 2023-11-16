@@ -46,11 +46,15 @@ function PointForm({ onClose }:PointFormProps) {
             console.error('Error during geocoding:', error);
         }
     };
-
+    
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await geocodeAddress();
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 4e8cd5d97414db2f764d48338ace0fee9e7d9e27
         if (coordinates) {
             const response = await fetch('https://3eed-2a00-1370-8188-58e4-2cff-3fd-1e2c-6694.ngrok-free.app/api/new_point', {
                 method: 'POST',
@@ -58,7 +62,7 @@ function PointForm({ onClose }:PointFormProps) {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    coordinates: coordinates.join(', '), // Преобразование массива координат в строку
+                    coordinates: coordinates.join(' '), // Преобразование массива координат в строку
                     activated,
                     materials,
                     approved: approved.toString(),
@@ -66,7 +70,11 @@ function PointForm({ onClose }:PointFormProps) {
                     cards: cards.toString(), // Преобразование числа в строку
                 })
             });
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 4e8cd5d97414db2f764d48338ace0fee9e7d9e27
             if (response.ok) { // Проверяем, что запрос успешен
                 onClose();
             }
@@ -96,8 +104,8 @@ function PointForm({ onClose }:PointFormProps) {
                                 value={activated}
                                 onChange={handleActivatedChange}
                             >
-                                <option value="Вчера">Вчера</option>
-                                <option value="Давно">Давно</option>
+                                <option value="вчера">Вчера</option>
+                                <option value="давно">Давно</option>
                             </select>
                         </div>
                     </div>
@@ -109,8 +117,8 @@ function PointForm({ onClose }:PointFormProps) {
                                 value={materials}
                                 onChange={handleMaterialsChange}
                             >
-                                <option value="Да">Да</option>
-                                <option value="Нет">Нет</option>
+                                <option value="да">Да</option>
+                                <option value="нет">Нет</option>
                             </select>
                         </div>
                         <div>
