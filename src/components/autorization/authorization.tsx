@@ -25,11 +25,10 @@ function Authorization() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const response = await fetch('http://localhost:8000/api/login', {
+        const response = await fetch('https://d702-2a00-1370-8188-58e4-4877-5cc-f238-4d7.ngrok-free.app/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': 'http://localhost:8000/api/login'
             },
             credentials: 'include',
             body: JSON.stringify({
@@ -40,9 +39,18 @@ function Authorization() {
 
         const content = await response.json();
         if (content["message"] == "success") {
+            if (email == "admin@test.com"){
+                setUserType('manager');
+            }
+            else {
+                setUserType('employee');
+            }
             navigate('/main');
         }
     }
+
+
+
 
     return(
         <div className="flex w-full h-screen justify-center items-center font-roboto">
@@ -73,10 +81,6 @@ function Authorization() {
                                 />
                                 <div className="bg-[#000000] w-[276px] h-[1px] sm:hidden"></div>
                             </div>
-                            <div>
-                                <button onClick={handleEmployeeClick}>сотрудник</button>
-                                <button onClick={handleManagerClick}>менеджер</button>
-                            </div>
                         </div>
                     </div>
                     <div className="flex justify-center">
@@ -88,6 +92,10 @@ function Authorization() {
                             <div className="flex items-center">
                                 <h2 className="text-prymeblue ">Забыли пароль?</h2>
                             </div>
+                        </div>
+                        <div>
+                            <button onClick={handleEmployeeClick}>сотрудник</button>
+                            <button onClick={handleManagerClick}>менеджер</button>
                         </div>
                     </div>
                     <div className="h-[90px] flex justify-center items-start">

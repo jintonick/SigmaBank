@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Header from "../header/header";
+
 import UnMenElement from "../../universal-element/uneversal-meneger-component";
 import UNTask from "../../universal-element/universal-task-element";
+import PointForm from "./form/pointform";
+
 import arrowright from "../../../images/arrow-right.svg"
-import Footer from "../footer/footer";
 import arrowdown from '../../../images/arrow-down.svg'
 import gitdiff from '../../../images/git-diff.svg'
 import plus2 from '../../../images/plus2.svg'
@@ -11,7 +12,6 @@ import plus2 from '../../../images/plus2.svg'
 interface Task {
     id: number;
     title: string;
-    // Другие поля...
 }
 function Meneger() {
     const taskCount = 7; // Измените это число для тестирования
@@ -40,7 +40,6 @@ function Meneger() {
 
     return (
         <div className="font-roboto w-full h-full">
-            {/*<Header />*/}
             <div className="sm:mt-[27px] pt-[15px] w-full h-full sm:pl-[70px] pl-[25px] pr-[25px] sm:pr-[63px]">
                 <div className='mb-[17px] sm:mb-[20px]'>
                     <div className='sm:flex hidden justify-between items-center mr-[47px]'>
@@ -91,6 +90,7 @@ function Meneger() {
                         <UnMenElement/>
                     </div>
                 </div>
+                <PointForm />
             </div>
             {/*<div className='flex items-end justify-center h-screen'>*/}
             {/*    <Footer />*/}

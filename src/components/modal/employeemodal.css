@@ -1,0 +1,9 @@
+.modal {
+    /* ... other styles ... */
+    z-index: 1001; /* Higher z-index than Backdrop */
+    position: fixed; /* Fixed or absolute positioning */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the modal */
+    /* ... */
+}

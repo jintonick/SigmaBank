@@ -11,7 +11,8 @@ module.exports = {
       prymred: '#F7304D',
       lightred: '#FFE5E8',
       lightblue: '#E4EAFF',
-      authgray: '#777E90'
+      authgray: '#777E90',
+      modalgray: 'rgba(255,255,255,0.77)'
     },
     extend: {},
       fontFamily: {

@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
+
 import UnElement from "../../universal-element/universal-element";
-import {YMaps} from "@pbe/react-yandex-maps";
+import EmployeeModal from "../../modal/employeemodal";
+import Backdrop from "../../modal/Backdrop";
 
 import './style.css'
 
@@ -34,7 +36,9 @@ function Employee() {
     const [currentRoute, setCurrentRoute] = useState({ startPoint: '', endPoint: '' });
     const [openedElementId, setOpenedElementId] = useState<null | number>(null);
     const [myMap, setMyMap] = useState<any>(null);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
     const mapRef = useRef<any>(null);
+    const [activeElementId, setActiveElementId] = useState<number | null>(null);
     const routes = [
         {
             id: 1,
@@ -58,6 +62,17 @@ function Employee() {
             setOpenedElementId(null);
         }
     }
+
+    const handleComplete = (id: number) => {
+        // Now you can use the id to know which task was completed
+        console.log(`Task with id ${id} was completed.`);
+        setActiveElementId(id);
+        setModalIsOpen(true);
+    };;
+
+    const closeModal = () => {
+        setModalIsOpen(false);
+    };
 
     const handleRouteChange = (startPoint: string, endPoint: string, id: number) => {
         console.log("Обновление маршрута:", startPoint, endPoint);
@@ -106,9 +121,12 @@ function Employee() {
                                     key={route.id}
                                     route={route}
                                     onOpen={() => handleRouteChange(route.startPoint, route.endPoint, route.id)}
+                                    onComplete={() => handleComplete(route.id)}
                                 />
                             ))}
                         </div>
+                        {modalIsOpen && <Backdrop show clicked={closeModal} />}
+                        {modalIsOpen && <EmployeeModal closeModal={closeModal} />}
                     </div>
                     <div className="pl-[50px] h-[850px] w-[920px] sm:flex hidden h-screen justify-center items-start">
                         <div className=" h-[850px] w-[920px]">
