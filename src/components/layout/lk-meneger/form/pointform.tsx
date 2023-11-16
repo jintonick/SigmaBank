@@ -52,7 +52,7 @@ function PointForm({ onClose }:PointFormProps) {
         e.preventDefault();
         await geocodeAddress();
         if (coordinates) {
-            const response = await fetch('localhost:8080/api/new_point', {
+            const response = await fetch('http://localhost:8080/api/new_point', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -61,6 +61,7 @@ function PointForm({ onClose }:PointFormProps) {
                     coordinates: coordinates.join(', '), // Преобразование массива координат в строку
                     activated,
                     materials,
+                    approved: approved.toString(),
                     days: days.toString(), // Преобразование числа в строку
                     cards: cards.toString(), // Преобразование числа в строку
                 })

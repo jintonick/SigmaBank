@@ -9,16 +9,20 @@ interface UnElementProps {
     onOpen: (startPoint: string, endPoint: string) => void;
     onComplete: () => void;
     route: {
+        id: number;
         startPoint: string;
         endPoint: string;
     };
+    duration: string;
+    name: string;
 }
+
 
 interface DeliveryDataProps {
     title: string;
     content: string;
 }
-function UnElement({ onOpen, onComplete, route }: UnElementProps) {
+function UnElement({ onOpen, onComplete, route, name, duration}: UnElementProps) {
     const [isElementOpen, setIsElementOpen] = useState(false);
     const [isStarted, setIsStarted] = useState(false);
     const [isCompleted, setIsCompleted] = useState(false);
@@ -46,12 +50,14 @@ function UnElement({ onOpen, onComplete, route }: UnElementProps) {
     }, [isStarted, timeLeft]);
 
     // Форматирование времени для отображения
+    // Форматирование времени для отображения
     const formatTime = (time: number) => {
-        const hours = Math.floor(time / 3600);
-        const minutes = Math.floor((time % 3600) / 60);
-        const seconds = time % 60;
-        return `${hours}:${minutes}:${seconds}`;
+        const h = Math.floor(time / 3600);
+        const m = Math.floor((time % 3600) / 60);
+        const s = time % 60;
+        return `${h}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
     };
+
 
     const toggleOpen = () => {
         if (!isElementOpen) {
@@ -79,15 +85,12 @@ function UnElement({ onOpen, onComplete, route }: UnElementProps) {
     return (
         <div>
             <div
-                className={`transition-height duration-500 ${isElementOpen ? 'h-[470px]' : 'h-[90px]'} sm:flex  hidden flex-col mb-[20px] justify-between max-w-[594px] shadow-[0px_2px_5px_rgba(0,0,0,0.15)] ${isStarted ? 'sm:border-prymred' : 'sm:border-prymeblue'} sm:border-[2px] rounded-[10px] w-full overflow-hidden`}
+                className={`transition-height duration-500 ${isElementOpen ? 'h-[250px]' : 'h-[90px]'} sm:flex  hidden flex-col mb-[20px] justify-between max-w-[594px] shadow-[0px_2px_5px_rgba(0,0,0,0.15)] ${isStarted ? 'sm:border-prymred' : 'sm:border-prymeblue'} sm:border-[2px] rounded-[10px] w-full overflow-hidden`}
             >
                 {isElementOpen  ? (
                     <div className="px-[25px] pt-[18px]">
-                        <h1 className="text-[30px] font-bold">Заказ №1</h1>
-                        <DeliveryData title="Описание" content="Доставка карты Халва и заключение договора" />
-                        <DeliveryData title="Получатель" content="Иванов Иван Иванов" />
-                        <DeliveryData title="Адрес" content="г.Краснодар ул.Победы д.7" />
-                        <DeliveryData title="Комментарий" content="Код от домофона такой же как от квартиры" />
+                        <h1 className="text-[30px] font-bold">Заказ №{route.id}</h1>
+                        <DeliveryData title="Название" content={name} />
                         <div className="mt-[40px] ml- w-full flex justify-between">
                             <div className="flex">
                                 {!isStarted && (
