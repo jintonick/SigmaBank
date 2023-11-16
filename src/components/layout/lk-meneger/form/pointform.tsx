@@ -50,13 +50,8 @@ function PointForm({ onClose }:PointFormProps) {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await geocodeAddress();
-<<<<<<< HEAD
-
-=======
-    
->>>>>>> 4e8cd5d97414db2f764d48338ace0fee9e7d9e27
         if (coordinates) {
-            const response = await fetch('https://3eed-2a00-1370-8188-58e4-2cff-3fd-1e2c-6694.ngrok-free.app/api/new_point', {
+            const response = await fetch('https://4f2c-2a00-1370-8188-58e4-2cff-3fd-1e2c-6694.ngrok-free.app/api/new_point', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -70,11 +65,6 @@ function PointForm({ onClose }:PointFormProps) {
                     cards: cards.toString(), // Преобразование числа в строку
                 })
             });
-<<<<<<< HEAD
-
-=======
-    
->>>>>>> 4e8cd5d97414db2f764d48338ace0fee9e7d9e27
             if (response.ok) { // Проверяем, что запрос успешен
                 onClose();
             }

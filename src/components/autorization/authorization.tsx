@@ -28,7 +28,7 @@ function Authorization() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const response = await fetch('https://3eed-2a00-1370-8188-58e4-2cff-3fd-1e2c-6694.ngrok-free.app/api/login', {
+        const response = await fetch('https://4f2c-2a00-1370-8188-58e4-2cff-3fd-1e2c-6694.ngrok-free.app/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -92,10 +92,10 @@ function Authorization() {
                                 <h2 className="text-prymeblue ">Забыли пароль?</h2>
                             </div>
                         </div>
-                        <div>
-                            <button onClick={handleEmployeeClick}>сотрудник</button>
-                            <button onClick={handleManagerClick}>менеджер</button>
-                        </div>
+                        {/*<div>*/}
+                        {/*    <button onClick={handleEmployeeClick}>сотрудник</button>*/}
+                        {/*    <button onClick={handleManagerClick}>менеджер</button>*/}
+                        {/*</div>*/}
                     </div>
                     <div className="h-[90px] flex justify-center items-start">
                         <button

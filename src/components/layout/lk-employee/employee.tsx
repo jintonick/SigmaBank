@@ -72,9 +72,9 @@ function Employee() {
     //     },
     // ];
 
-    const getUser = async () => {
+        const getUser = async () => {
         try {
-            const response = await fetch('https://3eed-2a00-1370-8188-58e4-2cff-3fd-1e2c-6694.ngrok-free.app/api/user', {
+            const response = await fetch('https://4f2c-2a00-1370-8188-58e4-2cff-3fd-1e2c-6694.ngrok-free.app/api/user', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -82,7 +82,7 @@ function Employee() {
                 credentials: 'include'
             });
             const data = await response.json();
-            console.log(data)
+            console.log("1", data)
             setUserLocation({
                 longitude: data.longitude,
                 latitude: data.latitude
@@ -92,30 +92,21 @@ function Employee() {
             });
 
             // После получения данных пользователя, вызываем функцию для получения задач
-            console.log(userId)
             getTasks(data.id);
         } catch (error) {
             console.error('Ошибка при получении данных пользователя:', error);
         }
     };
 
-<<<<<<< HEAD
     const getTasks = async ({ userId }: GetTasksProps) => {
         try {
-            const response = await fetch(`https://3eed-2a00-1370-8188-58e4-2cff-3fd-1e2c-6694.ngrok-free.app/api/tasks?userId=${userId}`, {
-=======
-    const getTasks = async (id: number) => {
-        try {
-            const url = `http://localhost:8080/api/tasks?userId=${encodeURIComponent(id)}`;
-            const response = await fetch(url, {
->>>>>>> 4e8cd5d97414db2f764d48338ace0fee9e7d9e27
+            const response = await fetch(`https://4f2c-2a00-1370-8188-58e4-2cff-3fd-1e2c-6694.ngrok-free.app/api/tasks?userId=${userId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 credentials: 'include'
             });
-<<<<<<< HEAD
             let tasks = await response.json();
 
             // Добавление userLocation как startPoint для первой задачи
@@ -123,20 +114,11 @@ function Employee() {
                 tasks[0].startPoint = `${userLocation.latitude}, ${userLocation.longitude}`;
             }
 
-=======
-    
-            const tasks = await response.json();
->>>>>>> 4e8cd5d97414db2f764d48338ace0fee9e7d9e27
             setRoutes(tasks);
         } catch (error) {
             console.error('Ошибка при получении задач:', error);
         }
     };
-
-
-
-
-
 
     useEffect(() => {
         getUser();
