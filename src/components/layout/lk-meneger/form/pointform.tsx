@@ -42,15 +42,15 @@ function PointForm({ onClose }:PointFormProps) {
             const data = await response.json();
             const coords = data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(' ').map(Number);
             setCoordinates(coords);
-            handleSubmit(coords); // Вызываем функцию отправки данных с новыми координатами
         } catch (error) {
             console.error('Error during geocoding:', error);
         }
     };
-
+    
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await geocodeAddress();
+    
         if (coordinates) {
             const response = await fetch('http://localhost:8080/api/new_point', {
                 method: 'POST',
@@ -58,7 +58,7 @@ function PointForm({ onClose }:PointFormProps) {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    coordinates: coordinates.join(', '), // Преобразование массива координат в строку
+                    coordinates: coordinates.join(' '), // Преобразование массива координат в строку
                     activated,
                     materials,
                     approved: approved.toString(),
@@ -66,10 +66,11 @@ function PointForm({ onClose }:PointFormProps) {
                     cards: cards.toString(), // Преобразование числа в строку
                 })
             });
+    
             if (response.ok) { // Проверяем, что запрос успешен
                 onClose();
             }
-            console.log(response)
+            console.log(response);
         }
     };
 
@@ -94,8 +95,8 @@ function PointForm({ onClose }:PointFormProps) {
                                 value={activated}
                                 onChange={handleActivatedChange}
                             >
-                                <option value="Вчера">Вчера</option>
-                                <option value="Давно">Давно</option>
+                                <option value="вчера">Вчера</option>
+                                <option value="давно">Давно</option>
                             </select>
                         </div>
                     </div>
@@ -107,8 +108,8 @@ function PointForm({ onClose }:PointFormProps) {
                                 value={materials}
                                 onChange={handleMaterialsChange}
                             >
-                                <option value="Да">Да</option>
-                                <option value="Нет">Нет</option>
+                                <option value="да">Да</option>
+                                <option value="нет">Нет</option>
                             </select>
                         </div>
                         <div>

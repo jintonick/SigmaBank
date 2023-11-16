@@ -23,14 +23,23 @@ function Meneger() {
 
     const handleButtonClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        const response = await fetch('https://d702-2a00-1370-8188-58e4-4877-5cc-f238-4d7.ngrok-free.app/api/login', {
+        const response = await fetch('http://localhost:8080/api/new_tasks', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             credentials: 'include',
             body: JSON.stringify({
+            })
+        });
 
+        const resp = await fetch('http://localhost:8080/api/assign_tasks', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+            body: JSON.stringify({
             })
         });
     }

@@ -72,7 +72,7 @@ function Employee() {
     //     },
     // ];
 
-        const getUser = async () => {
+    const getUser = async () => {
         try {
             const response = await fetch('http://localhost:8080/api/user', {
                 method: 'GET',
@@ -82,6 +82,7 @@ function Employee() {
                 credentials: 'include'
             });
             const data = await response.json();
+            console.log(data)
             setUserLocation({
                 longitude: data.longitude,
                 latitude: data.latitude
@@ -91,24 +92,24 @@ function Employee() {
             });
 
             // После получения данных пользователя, вызываем функцию для получения задач
+            console.log(userId)
             getTasks(data.id);
         } catch (error) {
             console.error('Ошибка при получении данных пользователя:', error);
         }
     };
 
-    const getTasks = async ({userId}:GetTasksProps) => {
+    const getTasks = async (id: number) => {
         try {
-            const response = await fetch('http://localhost:8080/api/tasks', {
+            const url = `http://localhost:8080/api/tasks?userId=${encodeURIComponent(id)}`;
+            const response = await fetch(url, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                credentials: 'include',
-                body: JSON.stringify({
-                    userId,
-                })
+                credentials: 'include'
             });
+    
             const tasks = await response.json();
             setRoutes(tasks);
         } catch (error) {
