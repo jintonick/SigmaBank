@@ -15,13 +15,16 @@ function Authorization() {
 
     const handleEmployeeClick = () => {
         setUserType('employee');
+        localStorage.setItem('userType', 'employee'); // Обновляем localStorage
         navigate('/main');
     };
 
     const handleManagerClick = () => {
         setUserType('manager');
+        localStorage.setItem('userType', 'manager'); // Обновляем localStorage
         navigate('/main');
     };
+
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -39,12 +42,8 @@ function Authorization() {
 
         const content = await response.json();
         if (content["message"] == "success") {
-            if (email == "admin@test.com"){
-                setUserType('manager');
-            }
-            else {
-                setUserType('employee');
-            }
+            const userType = email === "admin@test.com" ? 'manager' : 'employee';
+            localStorage.setItem('userType', userType); // Сохраняем тип пользователя
             navigate('/main');
         }
     }

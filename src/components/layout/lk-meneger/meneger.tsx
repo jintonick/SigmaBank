@@ -14,10 +14,26 @@ interface Task {
     title: string;
 }
 function Meneger() {
-    const taskCount = 7; // Измените это число для тестирования
+    const taskCount = 7;
     const tasks: Task[] = Array.from({ length: taskCount }, (_, i) => ({ id: i, title: `Task ${i + 1}` }));
-
     const [showAll, setShowAll] = useState(false);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const openModal = () => setModalIsOpen(true);
+    const closeModal = () => setModalIsOpen(false);
+
+    const handleButtonClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        const response = await fetch('https://d702-2a00-1370-8188-58e4-4877-5cc-f238-4d7.ngrok-free.app/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+
+            })
+        });
+    }
 
     const toggleShowAll = () => {
         setShowAll(!showAll);
@@ -47,9 +63,16 @@ function Meneger() {
                             <h1 className='text-[30px] font-bold'>Главная страница</h1>
                         </div>
                         <div>
-                            <button className='text-[18px] font-bold text-prymeblue'>Распределить задачи</button>
+                            <button
+                                className='text-[18px] mr-[80px] font-bold text-prymeblue'
+                                onClick={openModal}
+                            >
+                                Новая точка
+                            </button>
+                            <button onClick={handleButtonClick} className='text-[18px] font-bold text-prymeblue'>Распределить задачи</button>
                         </div>
                     </div>
+                    <PointForm onClose={closeModal}/>
                     <div className='flex items-center justify-between'>
                         <div className='flex w-full flex-wrap gap-[20px] sm:gap-[20px] sm:mt-[20px]'>
                             {displayedTasks.map((task, index) => (
@@ -90,7 +113,6 @@ function Meneger() {
                         <UnMenElement/>
                     </div>
                 </div>
-                <PointForm />
             </div>
             {/*<div className='flex items-end justify-center h-screen'>*/}
             {/*    <Footer />*/}

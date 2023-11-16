@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
-function PointForm() {
+interface PointFormProps {
+    onClose: () => void,
+}
+function PointForm({ onClose }:PointFormProps) {
     const [address, setAddress] = useState('');
     const [activated, setActivated] = useState('Вчера');
     const [materials, setMaterials] = useState('Да');
@@ -39,6 +42,7 @@ function PointForm() {
             const data = await response.json();
             const coords = data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(' ').map(Number);
             setCoordinates(coords);
+            handleSubmit(coords); // Вызываем функцию отправки данных с новыми координатами
         } catch (error) {
             console.error('Error during geocoding:', error);
         }
@@ -61,71 +65,81 @@ function PointForm() {
                     cards: cards.toString(), // Преобразование числа в строку
                 })
             });
+            if (response.ok) { // Проверяем, что запрос успешен
+                onClose();
+            }
             console.log(response)
         }
     };
 
     return (
-        <div className="w-[300px] p-[20px] flex flex-col justify-center items-center h-[500px] rounded-[10px] border-[1px]">
-            <h1 className="text-[24px] mb-[20px] font-bold">Форма точки</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Адрес точки</label>
-                    <input
-                        type="text"
-                        className="rounded-[5px] w-full border-[1px] border-authgray"
-                        value={address}
-                        onChange={handleAddressChange}
-                    />
-                </div>
-                <div>
-                    <label>Когда подключена точка?</label>
-                    <select
-                        className="w-full rounded-[5px] border-[1px] border-authgray"
-                        value={activated}
-                        onChange={handleActivatedChange}
-                    >
-                        <option value="Вчера">Вчера</option>
-                        <option value="Давно">Давно</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Карта и материалы доставлены?</label>
-                    <select
-                        className="w-full rounded-[5px] border-[1px] border-authgray"
-                        value={materials}
-                        onChange={handleMaterialsChange}
-                    >
-                        <option value="Да">Да</option>
-                        <option value="Нет">Нет</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Кол-во дней после выдачи последней карты?</label>
-                    <input
-                        type="text"
-                        className="rounded-[5px] w-full border-[1px] border-authgray"
-                        value={days}
-                        onChange={handleDaysChange}
-                    />
-                </div>
-                <div>
-                    <label>Кол-во одобренных заявок</label>
-                    <input
-                        type="text"
-                        className="rounded-[5px] w-full border-[1px] border-authgray"
-                        value={approved}
-                        onChange={handleApprovedChange}
-                    />
-                </div>
-                <div>
-                    <label>Кол-во выданных карт</label>
-                    <input
-                        type="text"
-                        className="rounded-[5px] w-full border-[1px] border-authgray"
-                        value={cards}
-                        onChange={handleCardsChange}
-                    />
+        <div className="max-w-[1295px] w-full z-1000 p-[20px] bg-[#FFF] justify-center items-center h-[285px] rounded-[10px] shadow-[2px_2px_10px_rgba(0,0,0,0.15)]">
+            <form onSubmit={handleSubmit} className="flex w-full h-full" >
+                <div className="flex">
+                    <div>
+                        <div>
+                            <label className="text-authgray text-[14px] font-bold">Адрес точки</label>
+                            <input
+                                type="text"
+                                className="rounded-[5px] w-full max-w-[340px] h-[40px] border-[1px] border-prymeblue"
+                                value={address}
+                                onChange={handleAddressChange}
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <label className="text-authgray text-[14px] font-bold">Когда подключена точка?</label>
+                            <select
+                                className="w-full rounded-[5px] border-[1px] border-authgray"
+                                value={activated}
+                                onChange={handleActivatedChange}
+                            >
+                                <option value="Вчера">Вчера</option>
+                                <option value="Давно">Давно</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <label className="text-authgray text-[14px] font-bold">Карта и материалы доставлены?</label>
+                            <select
+                                className="w-full rounded-[5px] border-[1px] border-authgray"
+                                value={materials}
+                                onChange={handleMaterialsChange}
+                            >
+                                <option value="Да">Да</option>
+                                <option value="Нет">Нет</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label className="text-authgray text-[14px] font-bold">Кол-во дней после выдачи последней карты?</label>
+                            <input
+                                type="text"
+                                className="rounded-[5px] w-full border-[1px] border-authgray"
+                                value={days}
+                                onChange={handleDaysChange}
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <label >Кол-во одобренных заявок</label>
+                            <input
+                                type="text"
+                                className="rounded-[5px] w-full border-[1px] border-authgray"
+                                value={approved}
+                                onChange={handleApprovedChange}
+                            />
+                        </div>
+                        <div>
+                            <label>Кол-во выданных карт</label>
+                            <input
+                                type="text"
+                                className="rounded-[5px] w-full border-[1px] border-authgray"
+                                value={cards}
+                                onChange={handleCardsChange}
+                            />
+                        </div>
+                    </div>
                 </div>
                 <div className="flex justify-between items-center mt-[15px]">
                     <button type="submit" className="w-[100px] h-[56px] bg-prymeblue text-[#FFF] text-[14px] font-medium rounded-[10px]">Отправить</button>

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useEffect } from "react";
 import { useLocation } from 'react-router-dom'
 import { Outlet } from 'react-router-dom';
 
@@ -11,13 +11,19 @@ import { useUser } from "../../context/UserContext";
 
 function MainLayout() {
     const location = useLocation();
-    const { userType } = useUser();
     const pathname = useLocation().pathname;
+    const { setUserType, userType } = useUser();
 
-
+    useEffect(() => {
+        const savedUserType = localStorage.getItem('userType');
+        if (savedUserType) {
+            setUserType(savedUserType);
+        }
+    }, []);
     const renderContent = () => {
+        const savedUserType = localStorage.getItem('userType');
         if (!pathname.includes('/main/help') && !pathname.includes('/main/wiki')) {
-            return userType === 'manager' ? <Meneger /> : <Employee />;
+            return savedUserType === 'manager' ? <Meneger /> : <Employee />;
         }
     };
 
