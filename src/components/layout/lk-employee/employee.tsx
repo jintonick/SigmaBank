@@ -49,7 +49,6 @@ function Employee() {
     const [userLocation, setUserLocation] = useState({ longitude: '', latitude: '' });
     const [currentRoute, setCurrentRoute] = useState({ startPoint: '', endPoint: '' });
     const [openedElementId, setOpenedElementId] = useState<null | number>(null);
-    const [userId, setUserId] = useState({id: 0})
     const [myMap, setMyMap] = useState<any>(null);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const mapRef = useRef<any>(null);
@@ -70,15 +69,12 @@ function Employee() {
     //         startPoint: "Тверская станция метро",
     //         endPoint: "Арбатская станция метро"
     //     },
-    // ];
+    // ];xs
 
-        const getUser = async () => {
+    const getUser = async () => {
         try {
-            const response = await fetch('https://4f2c-2a00-1370-8188-58e4-2cff-3fd-1e2c-6694.ngrok-free.app/api/user', {
+            const response = await fetch('http://localhost:8080/api/user', {
                 method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
                 credentials: 'include'
             });
             const data = await response.json();
@@ -86,9 +82,6 @@ function Employee() {
             setUserLocation({
                 longitude: data.longitude,
                 latitude: data.latitude
-            });
-            setUserId({
-                id: data.id
             });
 
             // После получения данных пользователя, вызываем функцию для получения задач
@@ -98,13 +91,10 @@ function Employee() {
         }
     };
 
-    const getTasks = async ({ userId }: GetTasksProps) => {
+    const getTasks = async (id: number) => {
         try {
-            const response = await fetch(`https://4f2c-2a00-1370-8188-58e4-2cff-3fd-1e2c-6694.ngrok-free.app/api/tasks?userId=${userId}`, {
+            const response = await fetch(`http://localhost:8080/api/tasks?userId=${id}`, {
                 method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
                 credentials: 'include'
             });
             let tasks = await response.json();

@@ -23,7 +23,7 @@ function Meneger() {
 
     const handleButtonClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        const response = await fetch('https://4f2c-2a00-1370-8188-58e4-2cff-3fd-1e2c-6694.ngrok-free.app/api/new_tasks', {
+        const response = await fetch('http://localhost:8080/api/new_tasks', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ function Meneger() {
             })
         });
 
-        const resp = await fetch('https://4f2c-2a00-1370-8188-58e4-2cff-3fd-1e2c-6694.ngrok-free.app/api/assign_tasks', {
+        const resp = await fetch('http://localhost:8080/api/assign_tasks', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

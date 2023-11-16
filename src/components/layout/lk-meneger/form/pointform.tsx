@@ -51,7 +51,7 @@ function PointForm({ onClose }:PointFormProps) {
         e.preventDefault();
         await geocodeAddress();
         if (coordinates) {
-            const response = await fetch('https://4f2c-2a00-1370-8188-58e4-2cff-3fd-1e2c-6694.ngrok-free.app/api/new_point', {
+            const response = await fetch('http://localhost:8080/new_point', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
