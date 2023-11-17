@@ -8,7 +8,7 @@
 Для начала клонируйте репозиторий с бэкендом на свой локальный компьютер. Откройте терминал и выполните следующие команды:
 
 ```bash
-git clone [https://github.com/treemorse/SigmaBank.git]
+git clone https://github.com/treemorse/SigmaBank.git
 cd SigmaBank
 go get
 ```
@@ -22,7 +22,7 @@ go run main.go
 После этого склонируйте данный репозиторий:
 
 ```bash
-git clone [https://github.com/jintonick/SigmaBank.git]
+git clone https://github.com/jintonick/SigmaBank.git
 cd SigmaBank
 npm install
 ```
