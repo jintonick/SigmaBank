@@ -9,7 +9,7 @@
 
 ```bash
 git clone [https://github.com/treemorse/SigmaBank.git]
-cd [SigmaBank]
+cd SigmaBank
 go get
 ```
 
@@ -23,7 +23,7 @@ go run main.go
 
 ```bash
 git clone [https://github.com/jintonick/SigmaBank.git]
-cd [SigmaBank]
+cd SigmaBank
 npm install
 ```
 
